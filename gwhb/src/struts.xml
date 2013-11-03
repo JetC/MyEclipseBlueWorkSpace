@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.custom.i18n.resources" value="resource" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.devMode" value="true" />
+
+	<package name="picture" namespace="/picture" extends="struts-default">
+		<action name="pictureAction" class="pictureAction" method="save">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+		<action name="pictureUpdateAction" class="pictureAction"
+			method="update">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+		<action name="pictureDeleteAction" class="pictureAction"
+			method="delete">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+		<action name="pictureGetAction" class="pictureAction" method="get">
+			<result>/picture/picture.jsp</result>
+		</action>
+		<action name="pictureListAction" class="pictureAction" method="list">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+	</package>
+
+	<package name="video" namespace="/video" extends="struts-default">
+		<action name="videoAction" class="videoAction" method="save">
+			<result>/video/listVideo.jsp</result>
+		</action>
+		<action name="videoUpdateAction" class="videoAction" method="update">
+			<result>/video/listVideo.jsp</result>
+		</action>
+		<action name="videoDeleteAction" class="videoAction" method="delete">
+			<result>/video/listVideo.jsp</result>
+		</action>
+		<action name="videoPreviewAction" class="videoAction" method="preview">
+			<result>/picture/picture.jsp</result>
+		</action>
+		<action name="videoGetAction" class="videoAction" method="get">
+			<result>/video/video.jsp</result>
+		</action>
+		<action name="videoListAction" class="videoAction" method="list">
+			<result>/video/listVideo.jsp</result>
+		</action>
+	</package>
+
+	<package name="message" namespace="/message" extends="struts-default">
+		<action name="messageAction" class="messageAction" method="save">
+			<result>/message/showMessage.jsp</result>
+		</action>
+		<action name="messageUpdateAction" class="messageAction"
+			method="update">
+			<result>/message/showMessage.jsp</result>
+		</action>
+		<action name="messageDeleteAction" class="messageAction"
+			method="delete">
+			<result>/message/showMessage.jsp</result>
+		</action>
+		<action name="messageListAction" class="messageAction" method="list">
+			<result>/message/listMessage.jsp</result>
+		</action>
+		<action name="messageShowAction" class="messageAction" method="show">
+			<result>/message/showMessage.jsp</result>
+		</action>
+	</package>
+</struts>

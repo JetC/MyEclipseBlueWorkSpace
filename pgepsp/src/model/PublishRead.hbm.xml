@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Hibernate映射文件的根元素 -->
+<hibernate-mapping package="model">
+	<class	name="PublishRead"	table="Publish_read">
+		<!-- 使用只读缓存 -->
+		<cache usage="nonstrict-read-write"/>
+		<!-- 映射标识属性 -->
+		<id	name="id" type="integer" column="ID">
+			<!-- 指定使用identity主键生成策略 -->
+			<generator class="native"/>
+		</id>
+		<!-- 映射普通属性 -->
+		<property name="p_title" column="p_title"
+			type="string" not-null="true" length="40"/>
+		<property name="p_addtime" column="p_addtime"
+			type="java.util.Date" not-null="true"/>
+		<property name="p_from" column="p_from"
+			type="string" not-null="true" length="200"/>
+		<property name="p_originTime" column="p_originTime"
+			type="java.util.Date" not-null="false"/>
+		<property name="p_count" column="p_count"
+			type="int" not-null="true"/>
+		<property name="p_author" column="p_author"
+			type="string" length="40"/>
+		<property name="p_preread" column="p_preread"
+			type="string" length="2000" not-null="true"/>
+		<property name="p_detail" column="p_detail"
+			type="org.springframework.orm.hibernate3.support.ClobStringType" not-null="true"/>
+		<property name="p_link" column="p_link"
+			type="string" not-null="true" length="200"/>
+		<property name="p_person" column="p_person"
+			type="int" not-null="true"/>
+		<property name="p_type" column="p_type"
+			type="string" not-null="true" length="40"/>
+		<property name="p_templateId" column="p_templateId"
+			type="int" not-null="true"/>
+	</class>
+</hibernate-mapping>

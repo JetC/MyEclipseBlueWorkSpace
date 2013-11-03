@@ -1,0 +1,147 @@
+body{
+	margin:0 0;
+}
+a{
+	text-decoration: none;
+}
+a:VISITED{
+	color:#000000;
+}
+a:LINK{
+	color:#000000;
+}
+.two{
+	color:#000000;
+	font-size:14px;
+	font-family:cursive;
+	text-decoration: none;	
+}
+body{
+	margin-top:0;
+}
+.page {
+	float: center;
+}
+ .page ul li {
+	float: left;
+	margin-right: 20px;
+}
+.hbsy_table1{
+	font-size: 19px;
+}
+.hbsy_table2{
+	font-size: 12px;
+}
+
+#hbsy_id1 img{
+	float:left;
+}
+.hbsy_div1{
+	display:block;
+}
+.hbsy_div1 ul li{
+	float:left;
+}
+.hbsy_div1 ul li form{
+	margin:0 0 0 0;
+	padding: 0 0 0 0;
+}
+.hbsy_research1{
+	display:block;
+}
+.hbsy_research1 ul li{
+	float:left;
+}
+.hbsy_research1 ul li form{
+	margin:0 0 0 0;
+	padding: 0 0 0 0;
+}
+#hbsy_search{
+	margin: 0 0;
+	padding: 0 0;
+	height: 23px;
+}
+#hbsy_search ul{
+	display:block;
+	margin: 0 0;
+	padding: 0 0;
+	height: 23px;
+}
+#hbsy_search ul li{
+	margin: 0 0;
+	float:right;
+	list-style-type: none;
+	height: 23px;
+}
+ul{
+	list-style-type: none;
+}
+.hbsy_add_div1 ul li{
+	float:left;
+}
+#hbsy_top{
+	  margin:0 auto 10px auto;
+	  width:1048px;
+	  height:94px;
+	  }
+#hbsy_logo{
+	  float:left;
+	  margin:0 0;
+	  width:324px;
+	  height:94px;
+  }
+ #nav{
+	  float:right;
+	  margin:0 0;
+	  width:724px;
+	  height:94px;
+	  margin:0 0 0 0;
+	  
+  }
+  #nav-top{
+	  width:724px;
+	  height:60px;
+	  margin:0 0 0 0;
+  }
+  #nav-top ul{
+	  list-style-type:none;
+	  float:right;
+	  margin-right:46px;
+	  margin-top:25px;
+	  margin-bottom:0;
+  }
+  #nav-top ul li img{
+	  position:relative;
+	  top:3px;
+  }
+  #nav-top ul li a{
+	  text-decoration:none;
+	  color:#83b462;
+  }
+  #nav-top ul li{
+	  font-size:12px;
+	  float:left;
+	  margin-right:5px;
+  }
+  #nav-bottom{
+	  width:724px;
+	  height:34px;
+	  margin:0 0 0 0;
+	  background:url(../images/menu.png) no-repeat;
+  }
+  #nav-bottom ul{
+	  list-style-type:none;
+	  height:14px;
+	  font-size:13px;
+	  color:#FFF;
+	  margin-top:10px;
+	  margin-bottom:0;
+  }
+  #nav-bottom ul li{
+	  float:left;
+	  margin-bottom:20px;
+  }
+  #nav-bottom ul li a{
+	  text-decoration:none;
+	  color:#FFF;
+  }

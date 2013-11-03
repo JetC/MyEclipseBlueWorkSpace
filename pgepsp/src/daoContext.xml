@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 指定Spring配置文件的Schema信息 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 配置DAO组件的模板 -->
+	<bean id="daoTemplate" abstract="true" lazy-init="true"
+		p:sessionFactory-ref="sessionFactory"/>
+	<bean id="picDao"
+		class="dao.PictureDao"
+		parent="daoTemplate"/>
+	<bean id="pubClaDao"
+		class="dao.PublishClassDao"
+		parent="daoTemplate"/>
+	<bean id="pubOriDao"
+		class="dao.PublishOriginDao"
+		parent="daoTemplate"/>
+	<bean id="pubReaDao"
+		class="dao.PublishReadDao"
+		parent="daoTemplate"/>
+	<bean id="staDao"
+		class="dao.StatisticsDao"
+		parent="daoTemplate"/>
+	<bean id="indLooDao"
+		class="dao.IndexLookingDao"
+		parent="daoTemplate"/>
+		
+	<bean id="hbsyDao" class="dao.HbsyDao" parent="daoTemplate"/>
+	<bean id="hdjyDao" class="dao.HdjyDao" parent="daoTemplate"/>
+	<bean id="hyjyDao" class="dao.HyjyDao" parent="daoTemplate"/>
+	<bean id="adminDao" class="dao.AdminDao" parent="daoTemplate"/>
+	<bean id="pictureDao1" class="dao.PictureDao" parent="daoTemplate"/>
+	<bean id="hbsyPageDao" class="dao.HbsyPageDao" parent="daoTemplate"/>
+	<bean id="hdjyPageDao" class="dao.HdjyPageDao" parent="daoTemplate"/>
+	<bean id="hyjyPageDao" class="dao.HyjyPageDao" parent="daoTemplate"/>
+	<bean id="adminPageDao" class="dao.AdminPageDao" parent="daoTemplate"/>
+	<bean id="statisticsDao" class="dao.StatisticsDao" parent="daoTemplate"/>
+	
+</beans>

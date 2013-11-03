@@ -1,0 +1,24 @@
+body{
+	margin:0 0;
+}
+.foot{
+	margin-top:-20px;
+	font-size: 12px;
+	color: #666666;
+}
+.bottom_table{
+	display:block;
+}
+.bottom_table ul li{
+	float:left;
+}
+.bottom_table ul li form{
+	margin:0 0 0 0;
+	padding: 0 0 0 0;
+}
+#middle_search ul li{
+	float:right;
+}
+#middle_image img{
+	float:left;
+}

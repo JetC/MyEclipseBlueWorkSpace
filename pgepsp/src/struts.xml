@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Struts2配置文件的DTD信息 -->
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<!-- Struts2配置文件的根元素 -->
+<struts>
+	<!-- 配置了系列常量 -->
+	<constant name="struts.custom.i18n.resources" value="resource"/>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.devMode" value="true"/>
+	<!-- 默认404错误处理包 -->
+	<package name="default" extends="struts-default">
+   	<default-action-ref name="notFound" />
+   	<action name="notFound">
+    <result>/404.jsp</result>
+   	</action>
+	</package>
+
+<package name="home" extends="struts-default">
+	<action name="index" class="HomeAction">
+	<result name="home">index1.jsp</result>
+	</action>
+</package>
+	<!-- 徐超 -->
+	<package name="action" namespace="/qkdd" extends="struts-default">
+	<global-results>
+			<result name="pclist" type="redirectAction">
+			<param name="actionName">pc</param>
+			</result>
+			<result name="polist" type="redirectAction">
+			<param name="actionName">po</param>
+			</result>
+			<result name="prlist" type="redirectAction">
+			<param name="actionName">pr</param>
+			</result>
+			<result name="research">/qikandd/research.jsp</result>
+			<result name="fresearch">/qikandd/front/fresearch.jsp</result>
+	</global-results>
+	<!-- 添加新的导读类别 -->
+		<action name="pcform" class="PublishAction" method="publishClassForm">
+			<result name="pcform">/qikandd/addpc.jsp</result>
+		</action>
+		<action name="addpc" class="PublishAction" method="addPublishClass">
+		</action>
+		<action name="pc" class="PublishAction" method="viewPc">
+			<result name="pclistview">/qikandd/viewpc.jsp</result>
+		</action>
+		<action name="delpc" class="PublishAction" method="delPc">
+			<result name="pclist">/qikandd/viewpc.jsp</result>
+		</action>
+		<action name="updpcform" class="PublishAction" method="updPcForm">
+			<result name="uppcform">/qikandd/updpc.jsp</result>
+		</action>
+		<action name="updpc" class="PublishAction" method="updPc">
+		</action>
+		
+	<!-- 添加新的杂志来源 -->
+		<action name="poform" class="PublishAction" method="publishOriginForm">
+			<result name="poform">/qikandd/addpo.jsp</result>
+		</action>
+		<action name="addpo" class="PublishAction" method="addPublishOrigin">
+		</action>
+		<action name="po" class="PublishAction" method="viewPo">
+			<result name="polistview">/qikandd/viewpo.jsp</result>
+		</action>
+		<action name="delpo" class="PublishAction" method="delPo">
+			<result name="polist">/qikandd/viewpo.jsp</result>
+		</action>
+		<action name="updpoform" class="PublishAction" method="updPoForm">
+			<result name="uppoform">/qikandd/updpo.jsp</result>
+		</action>
+		<action name="updpo" class="PublishAction" method="updPo">
+		</action>		
+		
+	<!-- 添加新的文章 -->
+		<action name="prform" class="PublishAction" method="publishReadForm">
+			<result name="prform">/qikandd/addpr.jsp</result>
+		</action>
+		<action name="addpr" class="PublishAction" method="addPublishRead">
+			<result name="prdetail">/qikandd/prdetail.jsp</result>
+			<result name="prdetail2">/qikandd/prdetail2.jsp</result>
+			<result name="input">/qikandd/addpr.jsp</result>
+		</action>
+		<action name="pr" class="PublishAction" method="viewPr">
+			<result name="prlistview">/qikandd/backhome.jsp</result>
+		</action>
+		<action name="prxq" class="PublishAction" method="viewPrDetail">
+			<result name="prdetail">/qikandd/prdetail.jsp</result>
+			<result name="prdetail2">/qikandd/prdetail2.jsp</result>
+			<result name="none">/qikandd/none.jsp</result>
+		</action>
+		<action name="delpr" class="PublishAction" method="delPr">
+			<result name="prlist">/qikandd/backhome.jsp</result>
+		</action>
+		<action name="updprform" class="PublishAction" method="updPrForm">
+			<result name="upprform">/qikandd/updpr.jsp</result>
+		</action>
+		<action name="updpr" class="PublishAction" method="updPr">
+			<result name="prdetail">/qikandd/prdetail.jsp</result>
+			<result name="prdetail2">/qikandd/prdetail2.jsp</result>
+			<result name="input">/qikandd/updpr.jsp</result>
+		</action>	
+		
+	<!-- 搜索action -->
+		<action name="research" class="PublishAction" method="research"></action>
+		<action name="classresearch" class="PublishAction" method="classResearch"></action>
+		<action name="originresearch" class="PublishAction" method="originResearch"></action>
+	<!-- 前台action -->
+	<action name="findex" class="PublishAction" method="findex">
+	<result name="index">/qikandd/front/index.jsp</result>
+	</action>
+	<action name="fdetail" class="PublishAction" method="fdetail">
+	<result name="detail">/qikandd/front/detail.jsp</result>
+	<result name="detail2">/qikandd/front/detail2.jsp</result>
+	</action>
+	<action name="fresearch" class="PublishAction" method="fresearch"></action>
+	<action name="fclass" class="PublishAction" method="fclassResearch"></action>
+	<action name="forigin" class="PublishAction" method="foriginResearch"></action>
+</package>
+
+<package name="analysis" namespace="/analysis" extends="jfreechart-default">
+	<!-- 生成图表action -->
+	<action name="toplookingcount" class="AnalysisAction" method="topLookingCountChart">
+	<result name="barchart" type="chart">
+		<param name="width">500</param>
+		<param name="height">400</param>
+	</result>
+	</action>
+	<action name="toplookingtime" class="AnalysisAction" method="topLookingTimeChart">
+	<result name="barchart" type="chart">
+		<param name="width">500</param>
+		<param name="height">400</param>
+	</result>
+	</action>
+	<action name="todaylooking" class="AnalysisAction" method="todayLooking">
+	<result name="linechart" type="chart">
+		<param name="width">500</param>
+		<param name="height">400</param>
+	</result>
+	</action>
+	<!-- 生成图表相关数据action -->
+	<action name="tlcv" class="AnalysisAction" method="topLookingCountView">
+	<result name="toplookingcountview">/analysis/cv.jsp</result>
+	</action>
+	<action name="tltv" class="AnalysisAction" method="topLookingTimeView">
+	<result name="toplookingtimeview">/analysis/tv.jsp</result>
+	</action>
+	<action name="tlv" class="AnalysisAction" method="todayLookingView">
+	<result name="todaylookingview">/analysis/v.jsp</result>
+	</action>
+	
+	<!-- 统计主页action -->
+	<action name="show" class="AnalysisAction" method="showChart"><result name="show">/analysis/showchart.jsp</result></action>
+	
+	<!-- 添加统计数据action -->
+	<action name="addsta" class="AnalysisAction" method="addSta"></action>
+	<action name="addind" class="AnalysisAction" method="addInd"></action>
+	</package>
+	<package name="picture1" namespace="/picture1" extends="struts-default">
+		<!-- 图片显示action -->	
+		<action name="viewpic" class="PublishAction" method="viewPicture">
+			<result name="pic">/qikandd/pic.jsp</result>
+		</action>
+	</package>
+	
+	
+	
+	<!-- 宏宇 -->
+<package name="picture" namespace="/picture" extends="struts-default">
+		<action name="pictureAction" class="pictureAction" method="save">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+		<action name="pictureUpdateAction" class="pictureAction"
+			method="update">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+		<action name="pictureDeleteAction" class="pictureAction"
+			method="delete">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+		<action name="pictureGetAction" class="pictureAction" method="get">
+			<result>/picture/picture.jsp</result>
+		</action>
+		<action name="pictureListAction" class="pictureAction" method="list">
+			<result>/picture/listPicture.jsp</result>
+		</action>
+	</package>
+
+	<package name="video" namespace="/video" extends="struts-default">
+		<action name="videoAction" class="videoAction" method="save">
+			<result>/video/listVideo.jsp</result>
+		</action>
+		<action name="videoUpdateAction" class="videoAction" method="update">
+			<result>/video/listVideo.jsp</result>
+		</action>
+		<action name="videoDeleteAction" class="videoAction" method="delete">
+			<result>/video/listVideo.jsp</result>
+		</action>
+		<action name="videoPreviewAction" class="videoAction" method="preview">
+			<result>/picture/picture.jsp</result>
+		</action>
+		<action name="videoGetAction" class="videoAction" method="get">
+			<result>/video/video.jsp</result>
+		</action>
+		<action name="videoListAction" class="videoAction" method="list">
+			<result>/video/listVideo.jsp</result>
+		</action>
+	</package>
+
+	<package name="message" namespace="/message" extends="struts-default">
+		<action name="messageAction" class="messageAction" method="save">
+			<result>/message/showMessage.jsp</result>
+		</action>
+		<action name="messageUpdateAction" class="messageAction"
+			method="update">
+			<result>/message/showMessage.jsp</result>
+		</action>
+		<action name="messageDeleteAction" class="messageAction"
+			method="delete">
+			<result>/message/showMessage.jsp</result>
+		</action>
+		<action name="messageListAction" class="messageAction" method="list">
+			<result>/message/listMessage.jsp</result>
+		</action>
+		<action name="messageShowAction" class="messageAction" method="show">
+			<result>/message/showMessage.jsp</result>
+		</action>
+	</package>
+	
+	
+	
+	
+	<!-- 蒋熠 -->
+	<package name="pkg_hbsy" namespace="/hbsy" extends="struts-default">
+	
+
+		<!-- 下面的class不写真正的src/action下的class名,写spring的applicationContext的注入时的bean的ID,为hbsyAction -->
+		<action name="hbsy_index_look" class="hbsyAction" method="hbsy_index_look">
+			<result name="hbsylook">/hbsy/Hbsy.jsp</result>			
+		</action>
+	<action name="hbsy_index_add" class="hbsyAction" method="hbsy_index_add">
+			<result name="hbsyadd">/hbsy/HbsyAdd.jsp</result>			
+		</action>
+		<action name="hbsy_index_manage" class="hbsyAction" method="hbsy_index_manage">
+			<result name="hbsymanage">/hbsy/HbsyManage.jsp</result>			
+		</action>
+		<action name="hbsy_index_search" class="hbsyAction" method="hbsy_index_search">
+			<result name="hbsysearch">/hbsy/HbsySearch.jsp</result>			
+		</action>
+	<action name="hbsy_add" class="hbsyAction" method="hbsy_add">			 
+		<!--  <interceptor-ref name="token" />  
+			 <interceptor-ref name="tokenSession"/>
+   			 <interceptor-ref name="defaultStack" />  	 -->		
+   			 <result name="hbsylook">/hbsy/HbsyLook.jsp</result>			
+			<result name="hbsylook_no_pic">/hbsy/HbsyLook_no_pic.jsp</result>
+   			 <result name="invalid.token">/index.jsp</result>	
+		</action>	
+		<action name="hbsy_look" class="hbsyAction" method="hbsy_look">
+			<result name="hbsylook">/hbsy/HbsyLook.jsp</result>			
+			<result name="hbsylook_no_pic">/hbsy/HbsyLook_no_pic.jsp</result>
+		</action>	
+				<action name="hbsy_delete" class="hbsyAction" method="hbsy_delete">
+			<result name="hbsydelete">/hbsy/HbsyManage.jsp</result>			
+		</action>	
+		<action name="hbsy_update" class="hbsyAction" method="hbsy_update">
+			<result name="hbsyupdate">/hbsy/HbsyUpdate_do.jsp</result>			
+		</action>	
+		<action name="hbsy_update_do" class="hbsyAction" method="hbsy_update_do">
+			<result name="hbsyupdate">/hbsy/HbsyManage.jsp</result>			
+		</action>	
+		
+		<action name="hbsy_pic_look" class="hbsyAction" method="hbsy_pic_look">
+		<result name="p_picture">/hbsy/pic_view.jsp</result>		
+		</action>
+		
+		<action name="hbsy_search" class="hbsyAction" method="hbsy_search">
+		<result name="search_success">/hbsy/search.jsp</result>
+		</action>
+		<action name="hbsy_sta" class="hbsyAction" method="hbsy_sta">
+		</action>
+	</package>
+	<package name="pkg_hdjy" namespace="/hdjy" extends="struts-default">
+	<action name="hdjy_index_look" class="hdjyAction" method="hdjy_index_look">
+			<result name="hdjylook">/hdjy/Hdjy.jsp</result>			
+		</action>
+	<action name="hdjy_index_add" class="hdjyAction" method="hdjy_index_add">
+			<result name="hdjyadd">/hdjy/HdjyAdd.jsp</result>			
+		</action>
+		<action name="hdjy_index_manage" class="hdjyAction" method="hdjy_index_manage">
+			<result name="hdjymanage">/hdjy/HdjyManage.jsp</result>			
+		</action>
+		<action name="hdjy_index_search" class="hdjyAction" method="hdjy_index_search">
+			<result name="hdjysearch">/hdjy/HdjySearch.jsp</result>			
+		</action>
+	<action name="hdjy_add" class="hdjyAction" method="hdjy_add">			 
+		<!--  <interceptor-ref name="token" />  
+			 <interceptor-ref name="tokenSession"/>
+   			 <interceptor-ref name="defaultStack" />  	 -->		
+   			 <result name="hdjylook">/hdjy/HdjyLook.jsp</result>			
+			<result name="hdjylook_no_pic">/hdjy/HdjyLook_no_pic.jsp</result>
+   			 <result name="invalid.token">/index.jsp</result>	
+		</action>	
+		<action name="hdjy_look" class="hdjyAction" method="hdjy_look">
+			<result name="hdjylook">/hdjy/HdjyLook.jsp</result>			
+			<result name="hdjylook_no_pic">/hdjy/HdjyLook_no_pic.jsp</result>
+		</action>	
+				<action name="hdjy_delete" class="hdjyAction" method="hdjy_delete">
+			<result name="hdjydelete">/hdjy/HdjyManage.jsp</result>			
+		</action>	
+		<action name="hdjy_update" class="hdjyAction" method="hdjy_update">
+			<result name="hdjyupdate">/hdjy/HdjyUpdate_do.jsp</result>			
+		</action>	
+		<action name="hdjy_update_do" class="hdjyAction" method="hdjy_update_do">
+			<result name="hdjyupdate">/hdjy/HdjyManage.jsp</result>			
+		</action>	
+		
+		<action name="hdjy_pic_look" class="hdjyAction" method="hdjy_pic_look">
+		<result name="p_picture">/hdjy/pic_view.jsp</result>		
+		</action>
+		
+		<action name="hdjy_search" class="hdjyAction" method="hdjy_search">
+		<result name="search_success">/hdjy/search.jsp</result>
+		</action>
+		<action name="hdjy_sta" class="hdjyAction" method="hdjy_sta">
+		</action>
+	
+	</package>	
+	<package name="pkg_hyjy" namespace="/hyjy" extends="struts-default">
+	<action name="hyjy_index_look" class="hyjyAction" method="hyjy_index_look">
+			<result name="hyjylook">/hyjy/Hyjy.jsp</result>			
+		</action>
+	<action name="hyjy_index_add" class="hyjyAction" method="hyjy_index_add">
+			<result name="hyjyadd">/hyjy/HyjyAdd.jsp</result>			
+		</action>
+		<action name="hyjy_index_manage" class="hyjyAction" method="hyjy_index_manage">
+			<result name="hyjymanage">/hyjy/HyjyManage.jsp</result>			
+		</action>
+		<action name="hyjy_index_search" class="hyjyAction" method="hyjy_index_search">
+			<result name="hyjysearch">/hyjy/HyjySearch.jsp</result>			
+		</action>
+	<action name="hyjy_add" class="hyjyAction" method="hyjy_add">			 
+		<!--  <interceptor-ref name="token" />  
+			 <interceptor-ref name="tokenSession"/>
+   			 <interceptor-ref name="defaultStack" />  	 -->		
+   			 <result name="hyjylook">/hyjy/HyjyLook.jsp</result>			
+			<result name="hyjylook_no_pic">/hyjy/HyjyLook_no_pic.jsp</result>
+   			 <result name="invalid.token">/index.jsp</result>	
+		</action>	
+		<action name="hyjy_look" class="hyjyAction" method="hyjy_look">
+			<result name="hyjylook">/hyjy/HyjyLook.jsp</result>			
+			<result name="hyjylook_no_pic">/hyjy/HyjyLook_no_pic.jsp</result>
+		</action>	
+				<action name="hyjy_delete" class="hyjyAction" method="hyjy_delete">
+			<result name="hyjydelete">/hyjy/HyjyManage.jsp</result>			
+		</action>	
+		<action name="hyjy_update" class="hyjyAction" method="hyjy_update">
+			<result name="hyjyupdate">/hyjy/HyjyUpdate_do.jsp</result>			
+		</action>	
+		<action name="hyjy_update_do" class="hyjyAction" method="hyjy_update_do">
+			<result name="hyjyupdate">/hyjy/HyjyManage.jsp</result>			
+		</action>	
+		
+		<action name="hyjy_pic_look" class="hyjyAction" method="hyjy_pic_look">
+		<result name="p_picture">/hyjy/pic_view.jsp</result>		
+		</action>
+		
+		<action name="hyjy_search" class="hyjyAction" method="hyjy_search">
+		<result name="search_success">/hyjy/search.jsp</result>
+		</action>
+		<action name="hyjy_sta" class="hyjyAction" method="hyjy_sta">
+		</action>
+	
+	</package>
+	<package name="pkg_admin" namespace="/admin" extends="struts-default">
+	<action name="admin_login_index" class="adminAction" method="admin_login_index">
+	<result name="login_index">/admin/Login.jsp</result>
+	</action>
+	<action name="admin_login" class="adminAction" method="admin_login">
+	<result name="login_false">/admin/Login.jsp</result>
+	<result name="login_success">/admin/Success.jsp</result>
+	</action>
+	<action name="info" class="adminAction" method="info">
+	<result name="info">/admin/info.jsp</result>
+	</action>
+	<action name="admin_add" class="adminAction" method="admin_add">
+	<result name="add_success">/admin/admin_add.jsp</result>
+	</action>
+		<action name="admin_add_do" class="adminAction" method="admin_add_do">
+	<result name="add_success">/admin/admin_info.jsp</result>
+	</action>
+	<action name="admin_info" class="adminAction" method="admin_info">
+	<result name="info">/admin/admin_info.jsp</result>
+	</action>
+	<action name="admin_logout" class="adminAction" method="admin_logout">
+	<result name="logout">/admin/Login.jsp</result>
+	</action>
+	</package>
+</struts>

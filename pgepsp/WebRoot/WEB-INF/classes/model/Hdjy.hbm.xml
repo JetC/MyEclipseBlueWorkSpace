@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- 指定Hiberante3映射文件的DTD信息 
+ hibernate-mapping是映射文件的根元素 -->
+<hibernate-mapping package="model">
+ <!-- 每个class元素对应一个持久化对象 -->
+ <class name="Hdjy" table="ACTIVITY_SUM">
+  <!-- id元素定义持久化类的标识属性 -->
+  <id name="id" >
+   <!-- 指定主键生成策略 -->
+<generator class="native"/>
+  </id>
+  <!-- property元素定义常规属性 -->
+  <!-- type="org.springframework.orm.hibernate3.support.ClobStringType" -->
+  <property generated="never" lazy="false" name="a_title" />
+  <property generated="never" lazy="false" name="a_abstract" />
+  <property generated="never" lazy="false" name="a_detail"  type="org.springframework.orm.hibernate3.support.ClobStringType"/>
+  <property generated="never" lazy="false" name="a_time" column="a_time" type="java.util.Date"/>
+    <property generated="never" lazy="false" name="a_addtime" column="a_addtime" type="java.util.Date"/>
+  <property generated="never" lazy="false" name="a_personId" />
+  <property generated="never" lazy="false"  name="a_count"/>
+  <property generated="never" lazy="false"  name="a_type"/>
+ </class>
+</hibernate-mapping>

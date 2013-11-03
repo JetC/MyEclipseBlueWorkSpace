@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 指定Spring配置文件的Schema信息 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	<context:annotation-config />
+	<context:component-scan base-package="com.gwhb" />
+	
+	<!-- 定义数据源Bean，使用C3P0数据源实现 -->
+	<!-- 设置连接数据库的驱动、URL、用户名、密码
+		连接池最大连接数、最小连接数、初始连接数等参数 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close"
+		p:driverClass="oracle.jdbc.driver.OracleDriver"
+		p:jdbcUrl="jdbc:oracle:thin:@localhost:1521:orcl1"
+		p:user="spf"
+		p:password="123"
+		p:maxPoolSize="40"
+		p:minPoolSize="1"
+		p:initialPoolSize="1"
+		p:maxIdleTime="20"/>
+	<!-- 定义Hibernate的SessionFactory -->
+	<!-- 依赖注入数据源，注入正是上面定义的dataSource -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource">
+		<property name="lobHandler" ref="lobHandler"></property>
+		<!-- mappingResouces属性用来列出全部映射文件 -->
+		<property name="mappingResources">
+			<list>
+				<!-- 以下用来列出Hibernate映射文件 -->
+				<value>model/Picture.hbm.xml</value>
+				<value>model/PublishClass.hbm.xml</value>
+				<value>model/PublishOrigin.hbm.xml</value>
+				<value>model/PublishRead.hbm.xml</value>
+				<value>model/Statistics.hbm.xml</value>
+				<value>model/IndexLooking.hbm.xml</value>
+				<value>model/Hbsy.hbm.xml</value>
+				<value>model/Hdjy.hbm.xml</value>
+				<value>model/Hyjy.hbm.xml</value>
+				<value>model/Admin.hbm.xml</value>
+			</list>
+		</property>
+		<!-- 定义Hibernate的SessionFactory的属性 -->
+		<property name="hibernateProperties">
+			<!-- 指定数据库方言、是否自动建表
+				是否生成SQL语句等 	-->
+			<value>
+			hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+			hibernate.hbm2ddl.auto=update
+			hibernate.show_sql=true
+			hibernate.format_sql=true
+			#开启二级缓存
+			hibernate.cache.use_second_level_cache=true
+			#设置二级缓存的提供者
+			hibernate.cache.provider_class=org.hibernate.cache.EhCacheProvider
+			</value>
+		</property>
+	</bean>
+	
+	
+	<!-- 配置Hibernate的局部事务管理器，使用HibernateTransactionManager类 -->
+	<!-- 该类实现PlatformTransactionManager接口，是针对Hibernate的特定实现-->
+	<!-- 并注入SessionFactory的引用 -->
+	<bean id="transactionManager" class=
+		"org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory"/>
+
+
+	<!-- 配置事务增强处理Bean,指定事务管理器 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<!-- 用于配置详细的事务语义 -->
+		<tx:attributes>
+			<!-- 所有以'get'开头的方法是read-only的 -->
+			<tx:method name="get*" read-only="true"/>
+			<!-- 其他方法使用默认的事务设置 -->
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<!-- 配置一个切入点 -->
+		<aop:pointcut id="leePointcut"
+			expression="execution(public * service.*.*(..))"/>
+		<!-- 指定在leePointcut切入点应用txAdvice事务增强处理 -->
+		<aop:advisor advice-ref="txAdvice" 
+			pointcut-ref="leePointcut"/>
+	</aop:config>
+
+
+	<!-- 定义业务逻辑组件模板 -->	
+	<!-- 为之注入DAO组件 -->
+	<bean id="indSer" class="service.IndexService">
+		<property name="indLooDao" ref="indLooDao"/>
+	</bean>
+	<bean id="staSer" class="service.StatisticsService">
+		<property name="staDao" ref="staDao"/>
+	</bean>
+	<bean id="picSer" class="service.PictureService">
+		<property name="picDao" ref="picDao"/>
+	</bean>
+	<bean id="pubSer" class="service.PublishService">
+		<property name="picDao" ref="picDao"/>
+		<property name="pubClaDao" ref="pubClaDao"/>
+		<property name="pubOriDao" ref="pubOriDao"/>
+		<property name="pubReaDao" ref="pubReaDao"/>
+	</bean>
+	
+	<bean id="PublishAction" class="action.PublishAction" scope="prototype">
+		<property name="picSer" ref="picSer"/>
+		<property name="pubSer" ref="pubSer"/>
+	</bean>
+	<bean id="AnalysisAction" class="action.AnalysisAction" scope="prototype">
+		<property name="pubSer" ref="pubSer"/>
+		<property name="staSer" ref="staSer"/>
+		<property name="indSer" ref="indSer"/>
+		<property name="hbsSer" ref="hbsyService"/>
+		<property name="hdjSer" ref="hdjyService"/>
+		<property name="hyjSer" ref="hyjyService"/>
+	</bean>
+	
+<bean id="lobHandler" lazy-init="true" class="org.springframework.jdbc.support.lob.DefaultLobHandler"/>
+
+
+
+<bean id="nativeJdbcExtractor"
+		class="org.springframework.jdbc.support.nativejdbc.C3P0NativeJdbcExtractor" />
+
+<bean id="oracleLobHandler" class="org.springframework.jdbc.support.lob.OracleLobHandler"
+		lazy-init="true">
+		<property name="nativeJdbcExtractor" ref="nativeJdbcExtractor" />
+</bean>
+<bean id="sessionFactory1"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="lobHandler" ref="oracleLobHandler" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.gwhb.model</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<value>
+				hibernate.dialect=org.hibernate.dialect.Oracle10gDialect
+				hibernate.hbm2ddl.auto=update
+				hibernate.show_sql=true
+				hibernate.format_sql=true
+			</value>
+		</property>
+	</bean>
+	<bean id="transactionManager1"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory1" />
+
+	<tx:advice id="txAdvice1" transaction-manager="transactionManager1">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:pointcut id="bussinessService"
+			expression="execution(public * com.gwhb.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice1" pointcut-ref="bussinessService" />
+	</aop:config>
+	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory1"></property>
+	</bean>
+	
+	
+	
+	<bean id="hbsyService" class="service.HbsyService" >
+		<property name="dao" ref="hbsyDao" />
+		<property name="pagedao" ref="hbsyPageDao" />
+	</bean>
+	<bean id="hbsy" class="model.Hbsy"/>	
+	
+	<bean id="hdjyService" class="service.HdjyService" >
+		<property name="dao" ref="hdjyDao" />
+		<property name="pagedao" ref="hdjyPageDao" />
+	</bean>
+	<bean id="hdjy" class="model.Hdjy"/>	
+	
+	<bean id="hyjyService" class="service.HyjyService" >
+		<property name="dao" ref="hyjyDao" />
+		<property name="pagedao" ref="hyjyPageDao" />
+	</bean>
+	<bean id="hyjy" class="model.Hyjy"/>	
+	
+	<bean id="adminService" class="service.AdminService" >
+		<property name="dao" ref="adminDao" />
+		<property name="pagedao" ref="adminPageDao" />
+	</bean>
+	<bean id="admin" class="model.Admin"/>	
+<bean id="pictureService1" class="service.PictureService" >
+		<property name="picDao" ref="pictureDao1" />
+</bean>
+	<bean id="picture" class="model.Picture"/>
+	
+	<bean id="statisticsService" class="service.StatisticsService" >
+		<property name="staDao" ref="statisticsDao" />
+	</bean>
+	<bean id="statistics" class="model.Statistics"/>
+	<bean id="hbsyAction" class="action.HbsyAction" scope="prototype">
+		<property name="hbsyservice" ref="hbsyService" />
+		<property name="pictureservice" ref="pictureService1" />
+		<property name="statisticsservice" ref="statisticsService" />
+		<property name="h" ref="hbsy"/>
+		<property name="p" ref="picture"/>
+		<property name="sta" ref="statistics"/>
+	</bean>
+
+<bean id="hdjyAction" class="action.HdjyAction" scope="prototype">
+		<property name="hdjyservice" ref="hdjyService" />
+		<property name="pictureservice" ref="pictureService1" />
+		<property name="statisticsservice" ref="statisticsService" />
+		<property name="h" ref="hdjy"/>
+		<property name="p" ref="picture"/>
+		<property name="sta" ref="statistics"/>
+	</bean>
+
+<bean id="hyjyAction" class="action.HyjyAction" scope="prototype">
+		<property name="hyjyservice" ref="hyjyService" />
+		<property name="pictureservice" ref="pictureService1" />
+		<property name="statisticsservice" ref="statisticsService" />
+		<property name="h" ref="hyjy"/>
+		<property name="p" ref="picture"/>
+		<property name="sta" ref="statistics"/>
+	</bean>
+	
+<bean id="adminAction" class="action.AdminAction" scope="prototype">
+		<property name="adminservice" ref="adminService" />
+		<property name="h" ref="admin"/>
+	</bean>	
+<bean id="HomeAction" class="action.HomeAction" scope="prototype">
+	<property name="picSer" ref="pictureService" />
+	<property name="hyjSer" ref="hyjyService" />
+	<property name="hdjSer" ref="hdjyService" />
+	<property name="hbsSer" ref="hbsyService" />
+	<property name="pubSer" ref="pubSer"/>
+</bean>
+</beans>

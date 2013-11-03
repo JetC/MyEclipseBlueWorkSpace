@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="pgepsp"
+  id="myeclipse.1378017930241"
+  context-root="/pgepsp"
+  j2ee-spec="6.0"
+  archive="pgepsp.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Hibernate映射文件的根元素 -->
+<hibernate-mapping package="model">
+	<class	name="Statistics" table="statistics">
+		<!-- 使用只读缓存 -->
+		<cache usage="nonstrict-read-write"/>
+		<!-- 映射标识属性 -->
+		<id	name="id" type="integer" column="ID">
+			<!-- 指定使用identity主键生成策略 -->
+			<generator class="native"/>
+		</id>
+		<!-- 映射普通属性 -->
+		<property name="s_enterTime" column="s_entertime"
+			type="java.util.Date" not-null="false"/>
+		<property name="s_closeTime" column="s_closetime"
+			type="java.util.Date" not-null="false"/>
+		<property name="s_totalTime" column="s_totaltime" type="long"/>
+		<property name="s_ip" column="s_ip" type="string" length="40"/>
+		<property name="s_type" column="s_type" type="string" length="40" not-null="true"/>
+		<property name="FK_id" column="FK_id" type="integer" not-null="true"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Hibernate映射文件的根元素 -->
+<hibernate-mapping package="model">
+	<class name="IndexLooking" table="index_looking">
+		<!-- 使用只读缓存 -->
+		<cache usage="nonstrict-read-write"/>
+		<!-- 映射标识属性 -->
+		<id	name="id" type="integer" column="ID">
+			<!-- 指定使用identity主键生成策略 -->
+			<generator class="native"/>
+		</id>
+		<!-- 映射普通属性 -->
+		<property name="i_enterTime" column="i_enterTime"
+			type="java.util.Date" not-null="false"/>
+		<property name="i_ip" column="i_ip"
+			type="string" not-null="false" length="40"/>
+	</class>
+	
+</hibernate-mapping>

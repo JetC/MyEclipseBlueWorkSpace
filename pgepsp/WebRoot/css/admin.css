@@ -1,0 +1,41 @@
+<style>
+body{
+	margin:0 0;
+}
+.admin_login_table{
+	height:319px;
+	width:100%;
+	border:0;
+}
+.admin_login_div1{
+	height: 276px;
+	width:100%;
+	background-color: #006760;	
+}
+.admin_login_div1_1{
+	margin-top:63px;
+	width:100%;
+	background-color: #006760;
+}
+.admin_login_div2{
+	height: 43px;
+	width:100%;
+	background-color: #015D57;	
+}
+.admin_login_word{
+	margin-top:10px;
+	color:#FFFFFF;
+	font-size: 20px;
+}
+.success_table{
+	border-top:1px dotted #00FF00;
+	font-size: 14px;
+	border-right:2px solid #00FF00;
+	width:214px;
+	height: 100%;
+}
+.success_table td{
+	border-bottom: 1px dotted #00FF00;
+	
+}
+</style>
